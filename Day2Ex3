@@ -1,0 +1,78 @@
+WAP to build a menu driven program using methods:
+1. Enter a Number
+2. Enter another Number
+3. Sum
+4. Subtract
+5. Divide
+6. Multiply
+7. Exit
+
+Step1: MonDay2Ex3 class with main method
+Step2: design all methods to take a number, sum, sub, mul, div
+Step3: call the infinite loop menu
+Step4: call the methods in this menu
+
+
+
+
+
+
+
+Solution can be:
+
+package pkgDay2;
+
+import java.util.Scanner;
+
+public class Day2Ex3 {
+	
+	static int input(String s) {
+		Scanner sc =new Scanner(System.in);
+		System.out.println(s);
+		int x=sc.nextInt();
+		return x;
+	}
+	static int sum(int a, int b) {
+		return a+b;
+	}
+	static int sub(int a, int b) {
+		return a>b?a-b:b-a;
+	}
+	static int mul(int a, int b) {
+		return a*b;
+	}
+	static int div(int a, int b) {
+		return b==0?0:a/b;
+	}
+	static void menu() {
+		System.out.println("Menu:");
+		System.out.println("1. Enter a Number\n2. Enter another Number\n3. Sum"
+				+"\n4. Subtract\n5. Divide\n6. Multiply\n7. Exit");	
+	}
+	public static void main(String[] args) {
+		int ch,x=0,y=0;
+		while(true) {
+			menu();
+			ch=input("Enter your choice");
+			if(ch==1) 
+				x=input("Enter first number:");
+			else if(ch==2)
+				y=input("Enter second number:");
+			else if(ch==3)
+				System.out.println("Sumation of " + x + " + " + y + " = " + sum(x,y));
+			else if(ch==4)
+				System.out.println("Modulo Subtraction of " + x + " - " + y + " = " + sub(x,y));
+			else if(ch==5)
+				System.out.println("Division of " + x + "/ " + y + " = " + div(x,y));
+			else if(ch==6)
+				System.out.println("Multiplication of " + x + " * " + y + " = " + mul(x,y));
+			else if(ch==7) {
+				System.out.println("Program exits..");
+				break;
+			}
+			else
+				System.out.println("Incorrect choice! Can be (1-7) only");
+		}
+	}
+
+}
