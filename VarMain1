@@ -1,0 +1,25 @@
+package pkgDay3;
+
+import java.util.Arrays;
+
+public class VarMain1 {
+//	var a=20; //instance var not allowed
+//	public var sum(int a, int b) { return a+b;} //'var' is not allowed here
+//	public int sum(var a, var b) { return a+b;} //'var' is not allowed here
+	public static void main(String[] args) {
+		var<var> al = Arrays.asList(1, 3);
+//		var b; //var initialisation required
+//		var c= (a) -> a>10; //Lambda expression needs an explicit target-type
+		var x = 100; // int
+		var y = 3.14; // double
+		var z = 'a'; // char
+		var p = "Jay"; // string
+		var q = false; // boolean
+		System.out.println(((Object) x).getClass().getSimpleName() + " is the type of " + x);
+		System.out.println(((Object) y).getClass().getSimpleName() + " is the type of " + y);
+		System.out.println(((Object) z).getClass().getSimpleName() + " is the type of " + z);
+		System.out.println(((Object) p).getClass().getSimpleName() + " is the type of " + p);
+		System.out.println(((Object) q).getClass().getSimpleName() + " is the type of " + q);
+		System.out.println(((Object) al).getClass().getSimpleName() + " is the type of " + al);
+	}
+}
