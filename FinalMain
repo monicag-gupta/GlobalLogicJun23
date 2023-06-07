@@ -1,0 +1,46 @@
+package pkgDay3;
+class Book{
+	final String Authorname="Uncle Bob";
+}
+class JavaeBook extends Book{
+	JavaeBook(){
+//		Authorname="Java Uncle Bob"; //The final field Book.Authorname cannot be assigned
+	}
+}
+class JavaeBook2 extends JavaeBook{
+	JavaeBook2(){
+//		Authorname="Bob Martin"; //The final field Book.Authorname cannot be assigned
+	}
+}
+final class JavaBook extends Book{
+	
+}
+//class JavaBookEdition2 extends JavaBook{ }//The type JavaBookEdition2 cannot subclass the final class JavaBook
+
+class A{
+	final void finalMethod() {
+		System.out.println("Final Method");
+	}
+	void nonfinalMethod() {
+		System.out.println("Non Final Method");
+	}
+}
+class B extends A{
+//	void finalMethod() { //Cannot override the final method from A
+//		System.out.println("Final Method");
+//	}
+	void nonfinalMethod() {
+		System.out.println("Non Final Method");
+	}
+}
+public class FinalMain {
+
+	public static void main(String[] args) {
+		A a=new B();
+		a.finalMethod();
+		a.nonfinalMethod();
+		System.out.println(new JavaeBook().Authorname);
+
+	}
+
+}
