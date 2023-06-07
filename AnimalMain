@@ -1,0 +1,81 @@
+package pkgDay3;
+
+interface LivingBeings{
+	void eat();
+	void sleep();
+}
+class Animal implements LivingBeings{
+	public void eat() {
+		System.out.println("Eat like an Animal");
+	}
+	public void sleep() {
+		System.out.println("Sleep peacefully like an animal");
+	}
+	public void walk() {
+		System.out.println("Walk gracefully like an animal");
+	}
+}
+class Dog extends Animal{
+	public void sleep() {
+		System.out.println("Dogs Sleep with caution");
+	}
+	public void bark() {
+		System.out.println("Bark of dog");
+	}
+}
+class Cat extends Animal{
+	public void walk() {
+		System.out.println("Cat walk");
+	}
+	public void meow() {
+		System.out.println("Meow by a cat");
+	}
+}
+class BabyDog extends Dog{
+	public void weep() {
+		System.out.println("Crying of a baby dog");
+	}
+}
+class AnimalTrainer{
+	static int count;
+	void Train(Animal a) { //upcasting
+		System.out.println("\n" + (++count) + ". a is a " + a.getClass().getSimpleName());
+		a.eat();
+		a.walk();
+		a.sleep();
+		if(a instanceof Dog)
+		{
+			Dog d=(Dog)a; //downcasting
+			d.bark();
+		}
+		if(a instanceof BabyDog)
+		{
+			BabyDog d=(BabyDog)a; //downcasting
+			d.weep();
+		}
+		if(a instanceof Cat)
+		{
+			((Cat) a).meow(); //downcasting
+		}
+			
+			
+			
+	}
+}
+public class AnimalMain {
+
+	public static void main(String[] args) {
+//		Animal bd=new BabyDog();
+		AnimalTrainer at=new AnimalTrainer();
+//		Animal c=new Cat();
+		at.Train(new BabyDog());
+		at.Train(new Dog());
+		at.Train(new Cat());
+//		System.out.println(bd instanceof BabyDog);
+//		System.out.println(bd instanceof Dog);
+//		System.out.println(bd instanceof Animal);
+//		System.out.println(bd instanceof Cat);
+
+	}
+
+}
