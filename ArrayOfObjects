@@ -1,0 +1,69 @@
+package pkgDay4;
+
+class Emp1234 {
+	int empId;
+	String empName;
+
+	public Emp1234(int empId, String empName) {
+		this.empId = empId;
+		this.empName = empName;
+	}
+
+	public String toString() {
+		return "Emp123 [empId=" + empId + ", empName=" + empName + "]";
+	}
+	public boolean equals(Object obj) {
+		return (empId == ((Emp1234)obj).empId);
+	}
+	
+}
+
+class Emp1234CRUD {
+	Emp1234[] emps;
+	int tos;
+
+	Emp1234CRUD() {
+		emps = new Emp1234[100];
+		tos = 0;
+	}
+
+	void add(Emp1234 e) {
+		if (tos < 100) {
+			emps[tos] = e;
+			tos++;
+		}
+	}
+	void remove(Emp1234 e) {
+		for(int i=0;i<tos;i++) {
+			if(emps[i].equals(e)) {
+				for(int j=i;j<tos-1;j++) {
+					emps[j]=emps[j+1];
+				}
+				tos--;
+				break;
+			}
+		}
+	}
+	void listEmps() {
+		System.out.println("List of emps: ");
+		for(int i=0;i<tos;i++) {
+			System.out.println(emps[i]);
+		}
+	}
+}
+
+
+public class Emp1234Main {
+
+	public static void main(String[] args) {
+		Emp1234CRUD emps=new Emp1234CRUD();
+		emps.add(new Emp1234(101,"Abc"));
+		emps.add(new Emp1234(102,"Bcd"));
+		emps.add(new Emp1234(103,"def"));
+		emps.listEmps();
+		emps.remove(new Emp1234(102,"bbb"));
+		emps.listEmps();
+
+	}
+
+}
