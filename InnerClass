@@ -1,0 +1,61 @@
+package pkgInner;
+
+class Outer { // Outer.class
+	public class Inner1 { // Outer$Inner.class //accessing name: Outer.Inner
+		public void fn() {
+			System.out.println("I am at the Outer.Innner section");
+		}
+
+	}
+	public static class Inner2 { // Outer$Inner.class //accessing name: Outer.Inner
+		public void fn2() {
+			System.out.println("I am at the Outer.Innner section");
+		}
+
+	}
+	public static class Inner3 { // Outer$Inner.class //accessing name: Outer.Inner
+		public static void fn3() {
+			System.out.println("I am at the Outer.Innner section");
+		}
+
+	}
+	public interface Showable{
+		void show();
+		public interface printable{
+			void print();
+		}
+	}
+
+}
+class ConPrintable implements Outer.Showable.printable{
+	@Override
+	public void print() {
+		System.out.println("print method of Interface");
+		
+	}
+}
+class ConcreteShowable implements Outer.Showable{
+
+	@Override
+	public void show() {
+		System.out.println("Show method of Interface");
+		
+	}
+	
+}
+
+public class InnerClassMain {
+
+	public static void main(String[] args) {
+		Outer o=new Outer();
+		Outer.Inner1 I1 = o.new Inner1(); //Non-static Inner class Object
+		I1.fn();
+		Outer.Inner2 I2=new Outer.Inner2();
+		I2.fn2();
+		Outer.Inner3.fn3();
+		Outer.Showable s=new ConcreteShowable();
+		s.show();
+
+	}
+
+}
