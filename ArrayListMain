@@ -1,0 +1,46 @@
+package pkgDay5;
+import java.util.List;
+import java.util.ArrayList;
+
+public class ArrayListMain {
+
+
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<>(5);
+		al.add(1);
+		al.add(11);
+		al.add(2);
+		al.add(21);
+		al.add(5);
+		System.out.println(al);
+		//al.remove(1);
+		Integer i=1;
+		al.remove(i);
+		System.out.println(al);
+		System.out.println("Size : " + al.size()); //capacity:5
+		al.add(8);
+		al.add(14);
+		System.out.println("Size : " + al.size()); //capacity: 7
+		al.add(14);
+		System.out.println("Size : " + al.size()); //capacity: 10
+		System.out.println(al.get(4)); //accessing the 4th ele //5
+		System.out.println(al);
+ 
+		ArrayList<String> alist=new ArrayList<String>(); 
+	      alist.add("Steve");
+	      alist.add("Tim");
+	      alist.add("Lucy");
+	      alist.add("Pat");
+	      alist.add("Angela");
+	      alist.add("Tom");
+	       System.out.println(alist);
+	      //Removing "Steve" and "Angela"
+	      alist.remove("Steve");
+	      alist.remove("Angela");
+	      System.out.println(alist);
+	      //Removing 3rd element
+	      alist.remove(2);
+	      System.out.println(alist);
+	}
+
+}
