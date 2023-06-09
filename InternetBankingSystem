@@ -1,0 +1,137 @@
+package pkgDay5;
+
+class Account { // the 'monitor'
+	int balance;
+	String name;
+	public Account() {balance=10000;}
+	public Account(String n) {name=n;balance=10000;}
+	public Account(String n, int bal) {name=n;balance=bal;}
+
+	// if 'synchronized' is removed, the outcome is unpredictable
+	public synchronized void deposit(int deposit_amount) {
+		System.out.println(name+ " Deposit amount" + deposit_amount);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		balance += deposit_amount;
+		System.out.println(name+ " After Deposit balance: " + balance);
+	}
+
+	public synchronized void withdraw(int withdraw_amount) {
+		System.out.println(name+"Withdrawn amount" + withdraw_amount);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		balance = balance < withdraw_amount ? balance : balance - withdraw_amount;
+		System.out.println(name+ " After Withdrawing balance: " + balance);
+	}
+
+	public synchronized void enquire() {
+		System.out.println(name+" Balance= " + balance);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(name+ " After balance check : " + balance);
+	}
+}
+
+
+class DepoThread implements Runnable {
+	Account account;
+	int amt;
+
+	public DepoThread(Account s, int a) {
+		account = s;
+		amt = a;
+	}
+
+	public void run() {
+		account.deposit(amt);
+	}
+}
+
+class DrawThread implements Runnable {
+	Account account;
+	int amt;
+
+	public DrawThread(Account s, int a) {
+		account = s;
+		amt = a;
+	}
+
+	public void run() {
+		account.withdraw(amt);
+	}
+}
+
+class BalThread implements Runnable {
+	Account account;
+
+	public BalThread(Account s) {
+		account = s;
+	}
+
+	public void run() {
+		account.enquire();
+	}
+}
+
+public class InternetBankingSystem {
+	public static void main(String[] args) {
+		Account accountObject1 = new Account("C1",25000);
+		Thread t11 = new Thread(new DepoThread(accountObject1, 10000));
+		Thread t21 = new Thread(new DrawThread(accountObject1, 2000));
+		Thread t31 = new Thread(new BalThread(accountObject1));
+		Account accountObject2 = new Account("C2");
+		Thread t12 = new Thread(new DepoThread(accountObject2, 80000));
+		Thread t22 = new Thread(new DrawThread(accountObject2, 9000));
+		Thread t32 = new Thread(new BalThread(accountObject2));
+		Account accountObject3 = new Account("C3");
+		Thread t13 = new Thread(new DepoThread(accountObject3, 100));
+		Thread t23 = new Thread(new DrawThread(accountObject3, 200));
+		Thread t33 = new Thread(new BalThread(accountObject3));
+		t13.start();
+		t23.start();
+		t33.start();
+		t11.start();
+		t21.start();
+		t31.start();
+		t12.start();
+		t22.start();
+		t32.start();
+	}
+}
+
+
+/* sample output:
+ * C3 Deposit amount100
+C1 Deposit amount10000
+C2 Deposit amount80000
+C1 After Deposit balance: 35000
+C1 Balance= 35000
+C2 After Deposit balance: 90000
+C2 Balance= 90000
+C3 After Deposit balance: 10100
+C3 Balance= 10100
+C2 After balance check : 90000
+C2Withdrawn amount9000
+C1 After balance check : 35000
+C1Withdrawn amount2000
+C3 After balance check : 10100
+C3Withdrawn amount200
+C2 After Withdrawing balance: 81000
+C1 After Withdrawing balance: 33000
+C3 After Withdrawing balance: 9900
+*/
+ */
+
+
