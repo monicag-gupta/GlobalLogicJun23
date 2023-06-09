@@ -1,0 +1,40 @@
+package pkgDay5;
+
+import java.util.*;
+
+public class MainPrg {
+	public static void main(String[] args) {
+		//Hashtable<Integer, String> map = new Hashtable<Integer, String>();
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+//		LinkedHashMap<Integer, String> map = new LinkedHashMap<Integer, String>();
+//		TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+		map.put(100, "A");
+		map.put(102, "B");
+		map.put(101, "C");
+		map.put(103, "A");
+		map.put(103, "C");
+		for (Map.Entry<Integer,String> m : map.entrySet()) {
+			System.out.print(m.getKey() + " : " + m.getValue() + ",   ");
+		}
+		System.out.println("\nThe KeySet: " + map.keySet());
+		System.out.println("The list of values: " + map.values());
+		System.out.println("The set of Map.Entry objects: " + map.entrySet());
+		for(int key : map.keySet()) {
+			System.out.print(key + ":" + map.get(key) + ",  ");
+		}
+		System.out.println("\n");
+		System.out.println("Before remove: " + map);
+		map.remove(102); // Remove value for key 102
+		System.out.println("After remove: " + map);
+		// Here, we specify the if and else statement as arguments of the method
+		System.out.println("(map.getOrDefault(101, \"Not Found\"): " + map.getOrDefault(101, "Not Found"));
+		System.out.println("(map.getOrDefault(105, \"Not Found\"): " +map.getOrDefault(105, "Not Found"));
+		System.out.println("Initial Map: " + map);
+		// Inserts, as the specified pair is unique
+		map.putIfAbsent(104, "D");
+		System.out.println("Updated Map after map.putIfAbsent(104, \"D\"): " + map);
+		// Returns the current value, as the specified pair already exist
+		map.putIfAbsent(101, "E");
+		System.out.println("Updated Map after map.putIfAbsent(101, \"E\"); : " + map);
+	}
+}
