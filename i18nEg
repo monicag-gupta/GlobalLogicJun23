@@ -1,0 +1,57 @@
+package pkgI18n;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class InternationalizationDemo {
+    public static void main(String[] args) {
+        // Set the desired locales for different languages
+        Locale englishLocale = new Locale("en", "US"); //en_US
+        Locale marathiLocale = new Locale("mr", "IN"); //mr_IN
+        Locale hindiLocale = new Locale("hi", "IN"); //hi_IN
+
+
+        // Load the resource bundles for each locale
+        ResourceBundle englishBundle = ResourceBundle.getBundle("Messages", englishLocale); //Messages_en_US.properties
+        ResourceBundle marathiBundle = ResourceBundle.getBundle("Messages", marathiLocale);
+        ResourceBundle hindiBundle = ResourceBundle.getBundle("Messages", hindiLocale);
+
+        // Retrieve the translations for the message
+        String englishMessage = englishBundle.getString("message");
+        String marathiMessage = marathiBundle.getString("message");
+        String hindiMessage = hindiBundle.getString("message");
+
+        // Display the translations
+        System.out.println("English: " + englishMessage);
+        System.out.println("Marathi: " + marathiMessage);
+        System.out.println("Hindi: " + hindiMessage);
+    }
+}
+
+
+
+
+All property files are put in src folder directly:
+
+Messages_en_US.properties
+
+message=What is your name?
+q2=Did you have Java today?
+
+
+
+Messages_hi_IN.properties
+
+message=\u0906\u092A\u0915\u093E \u0928\u093E\u092E \u0915\u094D\u092F\u093E \u0939\u0948 ?
+q2=Java liya kya aaj?
+
+
+
+Messages_mr_IN.properties
+
+message=\u0924\u0941\u091D\u0902 \u0928\u093E\u0935 \u0915\u093E\u092F \u0906\u0939\u0947 ?
+q2=Java liya kya aaj in Marathi?
+
+
+
+
