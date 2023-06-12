@@ -63,6 +63,18 @@ public class MethodRefEg {
 		
 		I3 i9= abc :: len;
 		System.out.println(i9.sam("Kalaripayattu"));
+		
+		
+		//arbitrary methods: All JVM associated methods are arbitrary methods:
+		//in Lambda we need the object to call these methods:
+		//String object has a function: length():
+		I3 i11 = (x) -> x.length();
+		System.out.println(i11.sam("Kalaripayattu22"));
+		
+		//same in method reference does not require the object, rather takes the class name
+		//very similar to static method call:
+		I3 i12 = String :: length;
+		System.out.println(i12.sam("Kalaripayattu8w22"));
 
 	}
 
