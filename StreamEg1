@@ -44,6 +44,10 @@ public class StreamEg1 {
 		System.out.println("\n\nRandom integers, limited to first 10 values only: ");
 		Random random=new Random();
 		random.ints().limit(10).forEach(e->System.out.print(e+ ", "));
+		
+		
+		System.out.println("\n\nRandom integers, limited to first 3 values between 1 to 10: ");
+		random.ints().filter(e->e>1 && e<10).limit(3).forEach(e->System.out.print(e+ ", "));
 	}
 
 }
