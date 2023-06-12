@@ -1,0 +1,69 @@
+package pkgDay6;
+class Abc{
+	public Abc() {
+		System.out.println("Construction returns nothing and takes no parameter");
+	}
+	public Abc(String s) {
+		System.out.println("Construction returns nothing, and here takes a String parameter: " + s);
+	}
+	public int len(String x) { return x.length();}
+	public void fn() {
+		System.out.println("fn returns nothing, takes no parameter");
+	}
+	public static void staticFn() {
+		System.out.println("staticFn() returns nothing, takes no parameter");
+	}
+}
+interface I1{
+	void sam(); //sam() takes no param, and returns nothing
+}
+interface I2{
+	void sam(String s);
+}
+interface I3{
+	int sam(String s);
+}
+
+public class MethodRefEg {
+
+	public static void main(String[] args) {
+		Abc abc=new Abc();
+		System.out.println("Lambda begin");
+		//lambda: 
+		I1 i1 = () -> new Abc();
+		i1.sam(); //i1 is associated with constructor
+//		I1 i2 =() -> {
+//			abc.fn();
+//		};
+		I1 i2= () -> abc.fn();
+		i2.sam(); //i2 is linked with fn()
+		
+		I1 i3 = () -> Abc.staticFn();
+		i3.sam(); //i3 is linked with staticFn()
+		
+		I2 i4=(x) -> new Abc(x);
+		i4.sam("abababa");
+		
+		I3 i10 = (x) -> abc.len(x);
+		System.out.println(i10.sam("Kalaripayattu"));
+		
+		//method reference:
+		I1 i5= Abc :: new ;
+		i5.sam();
+		
+		I1 i6= abc :: fn ;
+		i6.sam();
+		
+		I1 i7 = Abc :: staticFn ;
+		i7.sam();
+		
+		I2 i8= Abc :: new ;
+		i8.sam("abc param constructor");
+		
+		
+		I3 i9= abc :: len;
+		System.out.println(i9.sam("Kalaripayattu"));
+
+	}
+
+}
