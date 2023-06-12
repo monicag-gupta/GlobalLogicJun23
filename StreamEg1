@@ -1,0 +1,45 @@
+package pkgDay6;
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamEg1 {
+
+	public static void main(String[] args) {
+		List<Integer> li1 = Arrays.asList(1,2,13,47,5,6,13,2);
+		li1.stream().forEach(e -> System.out.print(e + ", "));
+		Long l=li1.stream().count();
+		System.out.println("\n\ncount() of list: " + l);
+		System.out.println("\nAll numbers gr th 10");
+		//print only numbers greater than 10
+		li1.stream().filter(e -> e>10).forEach(e -> System.out.print(e + ", "));
+		System.out.println("\n\nOnly distinct values: ");
+		li1.stream().distinct().forEach(e -> System.out.print(e + ", "));
+		System.out.println("\n\nOnly first 5 values: ");
+		li1.stream().limit(5).forEach(e -> System.out.print(e + ", "));
+		System.out.println("\n\ntake one stream, return another stream: Map () : v v imp function: ");
+		li1.stream().map(e -> e*e).forEach(e -> System.out.print(e + ", "));
+		
+		//List li2 = li1.stream().collect(Collectors.toList());
+		
+		System.out.println("\nAll numbers gr th 10 into another list, peeking to current list: ");
+		//print only numbers greater than 10
+		List<Integer> li2 = li1.stream().peek(e->System.out.print(e+ ", ")).filter(e -> e>10).collect(Collectors.toList());
+		System.out.println("\n"+li2);
+		
+		//convert the list into String:
+		String s=li1.stream().map(e->e.toString()).collect(Collectors.joining(",  "));
+		System.out.println("\nThe list in String format is: " + s);
+		
+		//say searched value is 13, and default value if not found is 0;
+		int d=li1.stream().filter(e->e==13).findAny().orElse(0);
+		System.out.println("Is 13 in the list: " + d);
+		int d2=li1.stream().filter(e->e==113).findAny().orElse(0);
+		System.out.println("Is 113 in the list: " + d2);
+		
+		
+		System.out.println("\nSorted list:");
+		li1.stream().sorted().forEach(e -> System.out.print(e + ", "));
+		
+	}
+
+}
