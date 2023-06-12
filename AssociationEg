@@ -1,0 +1,65 @@
+package pkgUML;
+import java.util.*;
+interface LivingSpace{} //LivingSpace is realized by House
+class Bunglow extends House{} //House is generalised form of Bunglow
+
+class House implements LivingSpace{
+	List<Room> rooms=new ArrayList<>(); //Association: Composition
+	List<Goods> goods=new ArrayList<>(); //Association: Aggregation
+	public List<Room> getRooms() { 
+		return rooms;
+	}
+	public void setRooms(String name) {
+		Room r=new Room();
+		r.name=name;
+		rooms.add(r);  		//Room do not exist on their own
+	}
+	public List<Goods> getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods g) {
+		goods.add(g); //Goods can exist without a house
+	}
+	@Override
+	public String toString() {
+		String roomsstr ="";
+		for(Room r:rooms) 
+			roomsstr += r.name+ ", ";
+		String goodsstr ="";
+		for(Goods r:goods) 
+			goodsstr += r.name+ ", ";
+		return "House [\nrooms=" + roomsstr + ", \ngoods=" + goodsstr + "]";
+	}
+	
+	
+	
+}
+class Room{
+	public String name;
+}
+class Goods{
+	String name;
+	Goods(String n){name=n;}
+}
+
+public class AssociationEg {
+
+	public static void main(String[] args) {
+		
+//		Room r=new Room();
+//		r.name="Living Room";
+		House h=new House();
+		h.setRooms("Drawing room");
+		h.setRooms("Living room");
+		Goods g1=new Goods("Bed");
+		Goods g2=new Goods("TV");
+		h.setGoods(g1);
+		h.setGoods(g2);
+		System.out.println(h);
+		System.out.println(h.rooms);
+		h = null;
+		System.out.println(g1.name);
+		
+	}
+
+}
