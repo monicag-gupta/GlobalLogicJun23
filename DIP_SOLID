@@ -1,0 +1,50 @@
+package pkgDay.solid;
+class Restaurant{
+	IHotDrink d;
+	Restaurant(){
+		d=new Tea();
+	}
+	Restaurant(IHotDrink d){this.d=d;}
+	void serve() {
+		d.prepare();
+		System.out.println("Serving now..");
+	}
+	
+}
+interface IHotDrink{
+	void prepare();
+}
+class Tea implements IHotDrink{
+	public void prepare() {
+		System.out.println("Tea is prepared!..ready to be served..");
+	}
+}
+class Coffee implements IHotDrink{
+	public void prepare() {
+		System.out.println("Coffee is prepared!..ready to be served..");
+	}
+}
+class Soup implements IHotDrink{
+	String Flavor;
+	Soup(){Flavor="Tomato";}
+	Soup(String Flavor){
+		this.Flavor=Flavor;
+	}
+	public void prepare() {
+		System.out.println("Soup is prepared with flavor: " + Flavor + "!..ready to be served..");
+	}
+}
+public class DIPMain {
+
+	public static void main(String[] args) {
+		Restaurant r1=new Restaurant();
+		r1.serve();
+		Restaurant r2=new Restaurant(new Coffee());
+		r2.serve();
+		Restaurant r3=new Restaurant(new Tea());
+		r3.serve();
+		Restaurant r4=new Restaurant(new Soup("SweetCorn"));
+		r4.serve();
+	}
+
+}
