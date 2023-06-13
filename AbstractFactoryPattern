@@ -1,0 +1,262 @@
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Color {
+	String colorName;
+
+	public Color() {}
+	public Color(String colorName) {
+		super();
+		this.colorName = colorName;
+	}
+
+	@Override
+	public String toString() {
+		return "Color [colorName=" + colorName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Red extends Color {
+	public Red() {
+		super("Red");
+	}
+
+	@Override
+	public String toString() {
+		return "Red [colorName=" + colorName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Blue extends Color {
+	public Blue() {
+		super("Blue");
+	}
+
+	@Override
+	public String toString() {
+		return "Blue [colorName=" + colorName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Green extends Color {
+	public Green() {
+		super("Green");
+	}
+
+	@Override
+	public String toString() {
+		return "Green [colorName=" + colorName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class ColorFactory {
+	public Color getColor(String c) {
+		Color cc;
+		if(c.equals("Red")) cc=new Red();
+		else if(c.equals("Blue")) cc=new Blue();
+		else cc=new Green();
+		return cc;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Shape {
+	String shapeName;
+
+	public Shape() {}
+	public Shape(String shapeName) {
+		super();
+		this.shapeName = shapeName;
+	}
+
+	@Override
+	public String toString() {
+		return "Shape [colorName=" + shapeName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Triangle extends Shape{
+	public Triangle() {
+		super("Triangle");
+	}
+
+	@Override
+	public String toString() {
+		return "Triangle [shapeName=" + shapeName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Rectangle extends Shape{
+	public Rectangle() {
+		super("Rectangle");
+	}
+
+	@Override
+	public String toString() {
+		return "Rectangle [shapeName=" + shapeName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class Square extends Shape{
+	public Square() {
+		super("Square");
+	}
+
+	@Override
+	public String toString() {
+		return "Square [shapeName=" + shapeName + "]";
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class ShapeFactory {
+	public Shape getShape(String s) {
+		Shape ss;
+		if(s.equals("Triangle")) ss=new Triangle();
+		else if(s.equals("Square")) ss=new Square();
+		else ss=new Rectangle();
+		return ss;
+	}
+
+}
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class AbstractFactory {
+	ShapeFactory sh=new ShapeFactory();
+	ColorFactory co=new ColorFactory();
+	public Shape selectShape(String s) {
+		return sh.getShape(s);
+	}
+	public Color selectColor(String s) {
+		return co.getColor(s);
+	}
+	public void draw(Shape s, Color c) {
+		System.out.println("In color : " + c + " We draw a " + s);
+	}
+
+}
+
+
+
+
+
+
+
+
+package pkgDay6.designPatterns.pkgCreational;
+
+public class PaintMain {
+
+	public static void main(String[] args) {
+//		ColorFactory cf=new ColorFactory();
+//		Color c=cf.getColor("Green");
+//		System.out.println(c);
+		AbstractFactory paint =new AbstractFactory();
+		paint.draw(paint.selectShape("Triangle"), paint.selectColor("Red"));
+
+	}
+
+}
+
+
+
+
+
+
+
