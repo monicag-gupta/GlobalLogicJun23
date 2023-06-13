@@ -1,0 +1,64 @@
+package pkgDay7;
+import java.util.*;
+class Emp implements Comparable<Emp>, Comparator<Emp>{
+	int sal;
+	String name;
+	int id;
+	public Emp() {}
+	public Emp(int sal, String name, int id) {
+		super();
+		this.sal = sal;
+		this.name = name;
+		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "\nEmp [sal=" + sal + ", name=" + name + ", id=" + id + "]";
+	}
+	@Override
+	public boolean equals(Object obj) {
+		Emp e=(Emp)obj;
+		return e.id==this.id;
+	}
+	@Override
+	public int compareTo(Emp o) {
+		return this.sal-o.sal;
+	}
+	@Override
+	public int compare(Emp e1, Emp e2) {
+		return e1.id-e2.id;
+	}
+}
+class NameComp implements Comparator<Emp>{
+	public int compare(Emp e1, Emp e2) {
+		return e1.name.compareTo(e2.name);
+	}
+//	(e1,e2)->e1.name.compareTo(e2.name)
+}
+
+public class EmpMain {
+
+	public static void main(String[] args) {
+		ArrayList<Emp> emps=new ArrayList<>(Arrays.asList(
+				new Emp(10000,"Tom",101),
+				new Emp(20000,"Harry",104),
+				new Emp(15000,"John",102),
+				new Emp(13000,"Doe",106)));
+		emps.add(new Emp(30000,"Arun",108));
+		System.out.println(emps);
+		Emp e=new Emp(40000,"Abcd",104);
+		emps.remove(e);
+		System.out.println(emps);
+		Collections.sort(emps);
+		System.out.println("Sorted emps according to sal:\n" + emps);
+		Collections.sort(emps, new Emp());
+		System.out.println("Sorted emps according to id:\n" + emps);
+//		Collections.sort(emps, new NameComp());
+//		Comparator<Emp> obj=(e1,e2)->e1.name.compareTo(e2.name);
+//		Collections.sort(emps,obj);
+		Collections.sort(emps,(e1,e2)->e1.name.compareTo(e2.name));
+		System.out.println("Sorted emps according to name:\n" + emps);
+		
+	}
+
+}
