@@ -1,0 +1,58 @@
+package pkgDay.solid;
+
+import java.util.*;
+interface Bird{
+	void eat();
+}
+
+class FlyingBird implements Bird{
+	public void eat() {
+		System.out.println("Bird eats");
+	}
+	void fly() {
+		System.out.println("Bird flies");
+	}
+}
+class nonFlyingBird implements Bird{
+	public void eat() {
+		System.out.println("Bird eats");
+	}
+}
+class Parrots extends FlyingBird{
+	public void eat() {
+		System.out.println("Parrot eats chillies");
+	}
+	void fly() {
+		System.out.println("Parrot flies low");
+	}
+}
+class Eagles extends FlyingBird{
+	public void eat() {
+		System.out.println("Eagle eats food");
+	}
+	void fly() {
+		System.out.println("Eagle flies high");
+	}
+}
+class Ostrich extends nonFlyingBird{
+	public void eat() {
+		System.out.println("Ostrich eats land food");
+	}
+//	void fly() {
+//		throw new ArithmeticException("Ostrich cannot fly");
+//	}
+}
+
+public class LiskovMain {
+	static void useBird(Bird b) {
+		b.eat();
+		if(b instanceof FlyingBird) ((FlyingBird)b).fly();
+	}
+
+	public static void main(String[] args) {
+		List<Bird> birds = Arrays.asList(new Parrots(), new Eagles(),new Ostrich(), new Parrots());
+		birds.stream().forEach(LiskovMain::useBird);
+
+	}
+
+}
