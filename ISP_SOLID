@@ -1,0 +1,56 @@
+package pkgDay.solid;
+interface Convertor{
+	double cel2kel(double cel);
+	double kel2cel(double kel);
+	double m2cm(double m);
+	double m2Km(double m);
+}
+interface TempConvertor{
+	double cel2kel(double cel);
+	double kel2cel(double kel);
+}
+interface DisConvertor{
+	double m2cm(double m);
+	double m2Km(double m);
+}
+class Thermometer implements TempConvertor{
+
+	@Override
+	public double cel2kel(double cel) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double kel2cel(double kel) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
+class MapingClass implements DisConvertor{
+
+	@Override
+	public double m2cm(double m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double m2Km(double m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}
+
+public class ISPMain {
+
+	public static void main(String[] args) {
+		Thermometer t1=new Thermometer();
+		System.out.println(t1.cel2kel(15));
+		MapingClass m=new MapingClass();
+		System.out.println(m.m2Km(1000));
+		
+	}
+
+}
