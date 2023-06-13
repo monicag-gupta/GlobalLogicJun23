@@ -1,0 +1,55 @@
+package pkgDay.solid;
+class Book{ //NOT IN SRP
+	int bookId;
+	int pages;
+	String Author;
+	public Book() {}
+	public Book(int bookId, int pages, String author) {
+		super();
+		this.bookId = bookId;
+		this.pages = pages;
+		Author = author;
+	}
+	public void print(String printer) {
+		System.out.println("Printing the book in " + printer + ": \n" + this);
+	}
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", pages=" + pages + ", Author=" + Author + "]";
+	}
+	
+	
+}
+class BookSRP{
+	int bookId;
+	int pages;
+	String Author;
+	public BookSRP() {}
+	public BookSRP(int bookId, int pages, String author) {
+		this.bookId = bookId;
+		this.pages = pages;
+		Author = author;
+	}
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", pages=" + pages + ", Author=" + Author + "]";
+	}
+}
+class Printer{
+	public void print(String printer, BookSRP b) {
+		System.out.println("Printing the book in " + printer + ": \n" + b);
+	}
+}
+
+public class SRPMain {
+
+	public static void main(String[] args) {
+		Book b=new Book(101, 2000,"Bob");
+		b.print("Laser Printer"); //NOT inSRP
+		BookSRP b2 = new BookSRP(101, 2000,"Bob");
+		Printer p=new Printer();
+		p.print("Hp printer", b2);
+		
+	}
+
+}
