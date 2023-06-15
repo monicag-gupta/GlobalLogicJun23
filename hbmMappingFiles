@@ -1,0 +1,169 @@
+package hbmMapping;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "STUDENT")
+public class Student {
+	@Id
+	@GeneratedValue
+	private int student_id;
+	private String student_name;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private StudentAddress studentAddress;
+
+	public StudentAddress getStudentAddress() {
+		return studentAddress;
+	}
+
+	public void setStudentAddress(StudentAddress studentAddress) {
+		this.studentAddress = studentAddress;
+	}
+
+	public int getStudent_id() {
+		return student_id;
+	}
+
+	public void setStudent_id(int student_id) {
+		this.student_id = student_id;
+	}
+
+	public String getStudent_name() {
+		return student_name;
+	}
+
+	public void setStudent_name(String student_name) {
+		this.student_name = student_name;
+	}
+}
+
+
+
+
+
+
+
+package hbmMapping;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "STUDENTADDRESS")
+public class StudentAddress {
+	@Id
+	@GeneratedValue
+	private int address_id;
+	private String address;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studentAddress")
+	private Set<Student> students = new HashSet<Student>(0);
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+}
+
+
+
+
+
+
+
+
+
+package hbmMapping;
+
+import java.util.Properties;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.*;
+import org.hibernate.service.ServiceRegistry;
+
+public class HibernateUtil {
+	private static SessionFactory sessionFactory;
+
+	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null) {
+			try {
+				Configuration configuration = new Configuration();
+				Properties settings = new Properties();
+				settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
+				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/javadb");
+				settings.put(Environment.USER, "root");
+				settings.put(Environment.PASS, "monica");
+				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+				settings.put(Environment.SHOW_SQL, "true");
+				settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+				settings.put(Environment.HBM2DDL_AUTO, "create");
+				configuration.setProperties(settings);
+				configuration.addAnnotatedClass(Student.class);
+				configuration.addAnnotatedClass(StudentAddress.class);
+				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+						.applySettings(configuration.getProperties()).build();
+				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return sessionFactory;
+	}
+
+}
+
+
+
+
+
+
+
+
+package hbmMapping;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+public class Main {
+	public static void main(String[] args) {
+		StudentAddress studentAddress = new StudentAddress();
+		studentAddress.setAddress("Delhi, India");
+		Student student1 = new Student();
+		student1.setStudent_name("AAA1");
+		student1.setStudentAddress(studentAddress);
+		Student student2 = new Student();
+		student2.setStudent_name("AAA2");
+		student2.setStudentAddress(studentAddress);
+		(studentAddress.getStudents()).add(student1);
+		(studentAddress.getStudents()).add(student2);
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(studentAddress);
+		session.getTransaction().commit();
+		session.close();
+		sessionFactory.close();
+	}
+}
