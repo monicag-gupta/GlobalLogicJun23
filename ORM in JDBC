@@ -1,0 +1,139 @@
+package pkgDay8;
+
+//Entity for Emp Relation
+public class Emp {
+	private int id;
+	private String name;
+	private int age;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "\nEmp [id=" + id + ", name=" + name + ", age=" + age + "]";
+	}
+	
+	public Emp() {}
+	public Emp(int id, String name, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+}
+
+
+
+
+
+
+
+Emp Dao:
+
+
+package pkgDay8;
+
+import java.sql.*;
+import java.util.*;
+
+public class EmpDAO {
+	public Connection getCon() throws Exception {
+		Class.forName("com.mysql.jdbc.Driver");
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb", "root", "monica");
+	}
+
+	public void insert(Emp e) {
+		String v = e.getId() + ", '" + e.getName() + "', " + e.getAge();
+		String sql = "insert into Emp values (" + v + ")";
+		try (Connection conn = getCon()) {
+			System.out.println(conn.createStatement().executeUpdate(sql) + " records inserted");
+		} catch (Exception e1) {
+			System.out.println(e1);
+		}
+
+	}
+
+	public void delete(Emp e) {
+		String sql = "delete from emp where id = " + e.getId();
+		try (Connection conn = getCon()) {
+			System.out.println(conn.createStatement().executeUpdate(sql) + " records deleted");
+		} catch (Exception e1) {
+			System.out.println(e1);
+		}
+
+	}
+
+	public void update(Emp e) {
+		String sql = "update emp set name = '" + e.getName() + "', age= " + e.getAge() + " where id = " + e.getId();
+		try (Connection conn = getCon()) {
+			System.out.println(conn.createStatement().executeUpdate(sql) + " records updated");
+		} catch (Exception e1) {
+			System.out.println(e1);
+		}
+
+	}
+
+	public ArrayList<Emp> listEmps() {
+		ArrayList<Emp> emps = new ArrayList<>();
+		try (Connection conn = getCon()) {
+			ResultSet rs=conn.createStatement().executeQuery("Select * from Emp");
+			while (rs.next())
+				emps.add(new Emp(rs.getInt(1) , rs.getString(2) , rs.getInt(3)));
+		} catch (Exception e1) {
+			System.out.println(e1);
+		}
+		return emps;
+	}
+
+}
+
+
+
+
+
+
+
+Main:
+package pkgDay8;
+
+public class EmpMain {
+
+	public static void main(String[] args) {
+		Emp e=new Emp(109,"Raju",5);
+		EmpDAO edao=new EmpDAO();
+//		edao.insert(e);
+		
+//		e.setName("Kalia");
+//		edao.update(e);
+		
+//		edao.delete(e);
+		
+		java.util.List<Emp> emps = edao.listEmps();
+		System.out.println(emps);
+
+	}
+
+}
+
+
+
+
+
+
+
+
