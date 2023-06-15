@@ -4,8 +4,6 @@ HibernateUtil:
 
 package pkgDay9;
 
-public class HibernateUtil {
-
 import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
