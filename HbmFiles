@@ -160,6 +160,44 @@ public class CreateStudent {
 
 
 
+package pkgDay9;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+public class CreateStudent {
+	public static void main(String[] args) {
+		// Create student entity object
+		Student student = new Student("Ishu2",02,"BTech") ;
+		
+//		Student student = new Student();
+//		student.setStudentName("Ishu2");
+//		student.setRollNumber(03);
+//		student.setCourse("MCA");
+		// Create session factory object
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		// getting session object from session factory
+		Session session = sessionFactory.openSession();
+		// getting transaction object from session object
+		session.beginTransaction();
+		session.save(student);
+		student = new Student("Ishu3",03,"MCA") ;
+		session.save(student);
+		System.out.println("Inserted Successfully");
+		session.getTransaction().commit();
+		session.close();
+		sessionFactory.close();
+	}
+}
+
+
+
+
+
+
+
+
+
 
 
 
