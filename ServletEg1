@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="Register" method="get">
+		<table>
+			<tr>
+				<td>Enter your Name:</td>
+				<td><input type="text" name="n"></td>
+			</tr>
+			<tr>
+				<td>Enter your mail-id:</td>
+				<td><input type="email" name="e"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Register"></td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+package pkgDay10;
+
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+@WebServlet("/Register")
+public class Register extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		String name = request.getParameter("n");
+		String email = request.getParameter("e");
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb", "root", "monica");
+			// here javadb is database name, root is username and password
+			Statement stmt = con.createStatement();
+			int s = stmt.executeUpdate("insert into reg values('" + name + "','" + email + "')");
+			out.println(s + " record inserted..<HR>");
+		} catch (Exception ex) {
+		}
+		out.println("<h1>Hello " + name + " <br>");
+		out.println("<br>your mail id is: " + email + " </h1>");
+
+	}
+}
+
+
+
