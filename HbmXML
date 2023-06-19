@@ -1,0 +1,127 @@
+hibernate.cfg.xml
+
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC   "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory> <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/javadb</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">monica</property>
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">5</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+</property><!-- SQL dialect -->
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        <property name="show_sql">true</property> <!-- Echo all executed SQL to stdout -->
+ 	       <property name="hbm2ddl.auto">create</property>
+       <!-- Mention here all the model classes along with their package name -->
+		<mapping class="com.hibernate.Std"/>
+    </session-factory>
+</hibernate-configuration>
+
+
+
+
+
+
+
+HibernateUtil:
+
+
+package com.hibernate;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+public class HibernateUtil {
+	final static StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+	private static SessionFactory sessionFactory = null;
+
+	private static SessionFactory buildSessionFactory() {
+		try {
+			sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+			return sessionFactory;
+		} catch (Exception e) {
+			StandardServiceRegistryBuilder.destroy(registry);
+			throw new ExceptionInInitializerError(e);
+		}
+	}
+
+	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null) {
+			buildSessionFactory();
+		}
+		return sessionFactory;
+	}
+}
+
+
+
+
+
+Std:
+package com.hibernate;
+
+import javax.persistence.*;
+
+@Entity
+public class Std {
+	@Id
+	int stdId;
+	String stdName;
+	public int getStdId() {
+		return stdId;
+	}
+	public void setStdId(int stdId) {
+		this.stdId = stdId;
+	}
+	public String getStdName() {
+		return stdName;
+	}
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+	public Std() {}
+	@Override
+	public String toString() {
+		return "Std [stdId=" + stdId + ", stdName=" + stdName + "]";
+	}
+	public Std(int stdId, String stdName) {
+		super();
+		this.stdId = stdId;
+		this.stdName = stdName;
+	}
+	
+
+}
+
+
+
+
+
+
+Main:
+package com.hibernate;
+import org.hibernate.Session;	
+import org.hibernate.SessionFactory;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Session s=HibernateUtil.getSessionFactory().openSession();
+		s.beginTransaction();
+		s.save(new Std(101, "Abc"));
+		s.getTransaction().commit();
+		s.close();
+		
+	}
+
+}
+
